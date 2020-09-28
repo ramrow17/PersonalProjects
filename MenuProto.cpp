@@ -2,6 +2,7 @@
 // Last edit: September 23, 2020
 // Sept22 -> got a basic menu working and tested
 // Sept23 -> added sub menus and setup for more functionality
+// Sept27 -> Worked in sub menu 1 functionality 
 
 
 #ifdef _WIN32
@@ -15,7 +16,10 @@
 
 using namespace std; 
 
+
 typedef void (*Menu_Processing_Function_Pointer)(void);
+
+static const char* ColorChoices[] = {"Blue", "Orange", "Green", "Red", "Pink", "Yellow", "Purple", }; 
 
 struct Menu_Option
 {
@@ -23,6 +27,10 @@ struct Menu_Option
   char const * p_selection_text;
   Menu_Processing_Function_Pointer p_processing_function;
 };
+
+
+unsigned int PlayerCount = 0; 
+
 
 
 // Main function that will use whatever title and submenu necessary
@@ -34,10 +42,10 @@ void MenuFunc(const char*, const Menu_Option*);
 // seperate header files to be cleaner for the main code.
 
 // Main Menu Selection 
-void Process_MMSelection1();
-void Process_MMSelection2();
-void Process_MMSelection3();
-void Process_MMSelection4();
+void Process_MMSelection1(); // go to sub menu 1
+void Process_MMSelection2(); // go to sub menu 2 
+void Process_MMSelection3(); // go to sub menu 3
+void Process_MMSelection4(); // reset all values for things 
 
 static const Menu_Option main_menu[] =
 {
@@ -53,10 +61,10 @@ static const Menu_Option main_menu[] =
 
 // Sub Menu 1 Selection
 // Will be used for the Player amount selection (2-6) 
-void Process_S1Selection1();
-void Process_S1Selection2();
-void Process_S1Selection3();
-void Process_S1Selection4();
+void Process_S1Selection1(); // Add
+void Process_S1Selection2(); // Confirm
+void Process_S1Selection3(); // Subtract
+void Process_S1Selection4(); // Reset to 0
 
 static const Menu_Option sub1_menu[] =
 {
@@ -134,17 +142,22 @@ int main()
 
 
 
-
-
 void Process_MMSelection1()
 { 
   
   system("cls"); 
+  static const char* SubMenuTitle = 
+  "------------------------------\n"
+  "         First Sub Menu\n"
+  "------------------------------\n";
 
-  
-  
-  
-  
+
+  cout << "Lets go to submenu 1!\n"; 
+  Sleep(3000);
+  system("cls");
+
+  MenuFunc(SubMenuTitle, sub1_menu); 
+
   // Exiting the function...
   cout << "Goodbye - now exiting sub menu 1"; 
   Sleep(3000); system("cls"); return; 
@@ -152,22 +165,98 @@ void Process_MMSelection1()
 } // ****  end Process_MMSelection1()  ****
 
 
+
+
 void Process_MMSelection2()
 { 
-  system("cls"); cout << "Hey nerdz"; Sleep(3000); system("cls"); return; 
+
+  system("cls"); 
+  static const char* SubMenuTitle = 
+  "------------------------------\n"
+  "         Second Sub Menu\n"
+  "------------------------------\n";
+
+
+  cout << "Lets go to submenu 2!\n"; 
+  Sleep(3000);
+  system("cls");
+
+  MenuFunc(SubMenuTitle, sub2_menu); 
+
+  // Exiting the function...
+  cout << "Goodbye - now exiting sub menu 2"; 
+  Sleep(3000); system("cls"); return; 
   
 } // ****  end Process_MMSelection2()  ****
 
-void Process_MMSelection3() { return; }
-void Process_MMSelection4() { return; }
+
+
+
+void Process_MMSelection3() 
+{
+
+  system("cls"); 
+  static const char* SubMenuTitle = 
+  "------------------------------\n"
+  "         Third Sub Menu\n"
+  "------------------------------\n";
+
+
+  cout << "Lets go to submenu 3!\n"; 
+  Sleep(3000);
+  system("cls");
+
+  MenuFunc(SubMenuTitle, sub3_menu); 
+
+  // Exiting the function...
+  cout << "Goodbye - now exiting sub menu 3"; 
+  Sleep(3000); system("cls"); return; 
+  
+} // ****  end Process_MMSelection3()  ****
+
+
+
+void Process_MMSelection4() 
+{ 
+  system("cls");
+  cout << "So we're not going into a sub menu or anything but... Hey :-)\n"; 
+  Sleep(1000);
+
+  // Exiting the function...
+  cout << "Goodbye - now exiting option 4"; 
+  Sleep(1000); system("cls"); return; 
+
+} // ****  end Process_MMSelection4()  ****
+
+
+void Process_S1Selection1() { 
+  PlayerCount++;
+  cout << "Updated Player count:" << PlayerCount << endl;
+  Sleep(1000); system("cls");
+  return;
+}
+
+
+void Process_S1Selection2() { 
+  
+  return; 
+}
+
+void Process_S1Selection3() { 
+  if (PlayerCount != 0) PlayerCount--; 
+  cout << "Updated Player count:" << PlayerCount << endl; 
+  Sleep(1000); system("cls");
+  return;
+   }
+
+void Process_S1Selection4() { PlayerCount = 0; return; }
 
 
 
 
-void Process_S1Selection1() { return; }
-void Process_S1Selection2() { return; }
-void Process_S1Selection3() { return; }
-void Process_S1Selection4() { return; }
+
+
+
 
 void Process_S2Selection1() { return; }
 void Process_S2Selection2() { return; }
@@ -199,7 +288,7 @@ void MenuFunc(const char* title, const Menu_Option* MenuChoice)
     }
     cout << "Enter selection, 0 to quit: ";
     cin >> choice;
-    if (choice == '0') { flag = true; break; } 
+    if (choice == '0')  { flag = true; break; } 
     for (size_t i = 0; i < quantity_selections; ++i)
       {
         if (choice == MenuChoice[i].choice)
@@ -214,3 +303,4 @@ void MenuFunc(const char* title, const Menu_Option* MenuChoice)
 
 
 }
+
