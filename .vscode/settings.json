@@ -5,5 +5,7 @@
         "xiosbase": "cpp",
         "xstring": "cpp",
         "ostream": "cpp"
-    }
+    },
+    "C_Cpp.dimInactiveRegions": false,
+    "C_Cpp.errorSquiggles": "Disabled"
 }

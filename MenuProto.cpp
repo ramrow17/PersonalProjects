@@ -278,7 +278,6 @@ void MenuFunc(const char* title, const Menu_Option* MenuChoice)
 
   bool flag = false; char choice;
 
-
   while (flag != true) {
     cout << title; 
 
